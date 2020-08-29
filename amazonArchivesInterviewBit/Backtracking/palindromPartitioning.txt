@@ -1,0 +1,39 @@
+
+bool isPalindrome(string &s)
+{
+    int n=s.size();
+    for(int i=0;i<=n/2;i++)
+    {
+        if(s[i]!=s[n-i-1]) return false;
+    }
+    return true;
+}
+
+void solve(string &A,vector<vector<string>>&ans,vector<string>&sol,int index)
+{
+    if(index>=A.size())
+    {
+        ans.push_back(sol);
+        return;
+    }
+    string s="";
+    for(int i=index;i<A.size();i++)
+    {
+        s+=A[i];
+        if(isPalindrome(s))
+        {
+            sol.push_back(s);
+            solve(A,ans,sol,i+1);
+            sol.pop_back();
+        }
+    }
+    return;
+}
+
+vector<vector<string> > Solution::partition(string A) {
+    int n=A.size();
+    vector<vector<string>>ans;
+    vector<string>sol;
+    solve(A,ans,sol,0);
+    return ans;
+}

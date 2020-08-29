@@ -1,0 +1,23 @@
+
+void comb(vector<vector<int>>&ans,vector<int>&row,int start,int end,int index,int B)
+{
+    if(index==B)
+    {
+        ans.push_back(row);
+        return;
+    }
+    if(start>end) return;
+    row[index]=start;
+    comb(ans,row,start+1,end,index+1,B);
+    comb(ans,row,start+1,end,index,B);
+    return;
+}
+
+
+vector<vector<int> > Solution::combine(int A, int B) {
+    vector<int>row(B);
+    vector<vector<int>>ans;
+    comb(ans,row,1,A,0,B);
+    return ans;
+}
+    

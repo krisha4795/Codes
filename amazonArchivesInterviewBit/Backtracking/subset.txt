@@ -1,0 +1,20 @@
+
+void solve(vector<int>&A,vector<vector<int>>&ans,vector<int>&row,int index)
+{
+    if(index==A.size()) return;
+    row.push_back(A[index]);
+    ans.push_back(row);
+    solve(A,ans,row,index+1);
+    row.pop_back();
+        solve(A,ans,row,index+1);
+        return;
+}
+
+vector<vector<int> > Solution::subsets(vector<int> &A) {
+    vector<int>row;
+    sort(A.begin(),A.end());
+    vector<vector<int>>ans;
+    ans.push_back(row);
+    solve(A,ans,row,0);
+    return ans;
+}

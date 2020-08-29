@@ -1,0 +1,27 @@
+
+
+
+void comb(vector<int>&A,vector<vector<int>>&ans,vector<int>&row,int B,int sum,int index)
+{
+    if(sum==B)
+    {
+        if(ans.size()==0 ||row!=ans.back())
+        ans.push_back(row);
+        return;
+    }
+    if(index>=A.size())return;
+    row.push_back(A[index]);
+    comb(A,ans,row,B,sum+A[index],index+1);
+    row.pop_back();
+    comb(A,ans,row,B,sum,index+1);
+    return;
+}
+
+vector<vector<int> > Solution::combinationSum(vector<int> &A, int B) {
+   int n=A.size();
+   sort(A.begin(),A.end());
+   vector<vector<int>>ans;
+   vector<int>row;
+   comb(A,ans,row,B,0,0);
+   return ans;
+}

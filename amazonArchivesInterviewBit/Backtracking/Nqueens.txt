@@ -1,0 +1,57 @@
+
+bool isCol(vector<string>&sol,int col,int row)
+{
+    for(int i=0;i<row;i++)
+    {
+        if(sol[i][col]=='Q') 
+        {
+                    // cout<<"dup"<<row<<" "<<i<<endl;
+
+            return false;
+        }
+    }
+            // cout<<"NoDup"<<row<<" "<<col<<endl;
+
+    return true;
+}
+bool isDiag(vector<string>&sol,int col,int row)
+{
+    for(int i=row-1,j=col-1;i>=0 && j>=0;i--,j--)
+    {
+        if(sol[i][j]=='Q') return false;
+    }
+    for(int i=row-1, j=col+1;i>=0 && j<sol.size();i--,j++)
+    {
+        if(sol[i][j]=='Q')return false;
+    }
+    return true;
+}
+
+void solve(vector<vector<string>>&solSet,vector<string>&sol,int row)
+{
+    if(row==sol.size())
+    {
+        // cout<<"yes"<<endl;
+        solSet.push_back(sol);
+        return;
+    }
+    for(int i=0;i<sol.size();i++)
+    {
+        if(isCol(sol,i,row) &&isDiag(sol,i,row))
+        {
+            sol[row][i]='Q';
+            solve(solSet,sol,row+1);
+            sol[row][i]='.';
+        }
+    }
+    return;
+}
+
+
+vector<vector<string> > Solution::solveNQueens(int A) {
+    vector<vector<string>>solSet;
+    string s(A,'.');
+    vector<string>sol(A,s);
+    solve(solSet,sol,0);
+    return solSet;
+}
